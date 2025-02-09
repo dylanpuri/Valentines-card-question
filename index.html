@@ -6,11 +6,8 @@
     <title>Valentine's Maze</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
 
         body {
             margin: 0;
@@ -19,13 +16,32 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            font-family: 'Press Start 2P', cursive;
-            background-color: #ff9999;
+            font-family: 'Dancing Script', cursive;
             animation: rainbow-bg 5s linear infinite;
-            padding: 20px;
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
+        .floating-heart {
+            position: fixed;
+            font-size: 24px;
+            color: #ff4081;
+            pointer-events: none;
+            z-index: 1;
+            animation: float-up 4s linear infinite;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Previous styles remain the same except for these changes/additions */
         .game-frame {
             background-color: #1a1a1a;
             border-radius: 20px;
@@ -45,55 +61,6 @@
             box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
         }
 
-        #game-container {
-            position: relative;
-            z-index: 1;
-        }
-
-        .floating-heart {
-            position: fixed;
-            font-size: 24px;
-            color: #ff4081;
-            pointer-events: none;
-            z-index: 0;
-            animation: float-up 4s linear infinite;
-        }
-
-        @keyframes float-up {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        #maze-container {
-            position: relative;
-            border: 4px solid #444;
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px auto;
-        }
-
-        .wall {
-            position: absolute;
-            background-color: #ff6b6b;
-            border: 1px solid #ff8c8c;
-            box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.3);
-            border-radius: 2px;
-        }
-
-        #player, #target {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            transition: all 0.2s;
-        }
-
         .title {
             font-family: 'Press Start 2P', cursive;
             font-size: 24px;
@@ -105,72 +72,23 @@
             line-height: 1.4;
         }
 
-        .hidden {
-            display: none !important;
-        }
-
-        #win-screen {
-            text-align: center;
-            background-color: #1a1a1a;
-            border: 8px solid #333;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5),
-                        inset 0 0 10px rgba(255, 255, 255, 0.1);
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 2;
-            padding: 40px;
-        }
-
-        .button {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 16px;
-            padding: 15px 30px;
-            margin: 15px;
+        #maze-container {
             border: 4px solid #444;
-            background-color: #ff4081;
-            color: white;
-            box-shadow: 4px 4px 0px #800020;
-            transform: translate(-2px, -2px);
-            transition: all 0.1s;
-            cursor: pointer;
-            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
         }
 
-        .button:active {
-            transform: translate(2px, 2px);
-            box-shadow: 0px 0px 0px #800020;
+        .wall {
+            background-color: #ff6b6b;
+            border: 1px solid #ff8c8c;
+            box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.3);
         }
 
-        #yes-button {
-            background-color: #ff4081;
-        }
-
-        #no-button {
-            background-color: #f44336;
-        }
-
-        #celebration-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 3;
-        }
-
-        .celebration-text {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 48px;
-            color: white;
-            text-shadow: 2px 2px 0px #ff4081,
-                         4px 4px 0px #800020;
-            margin: 20px;
+        #player, #target {
+            width: 30px;  /* Increased from 20px */
+            height: 30px; /* Increased from 20px */
         }
 
         .celebration-container {
@@ -187,6 +105,60 @@
             object-fit: contain;
         }
 
+        /* Update button styles for retro look */
+        .button {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 16px;
+            padding: 15px 30px;
+            border: 4px solid #444;
+            background-color: #ff4081;
+            color: white;
+            box-shadow: 4px 4px 0px #800020;
+            transform: translate(-2px, -2px);
+            transition: all 0.1s;
+        }
+
+        .button:active {
+            transform: translate(2px, 2px);
+            box-shadow: 0px 0px 0px #800020;
+        }
+
+        #win-screen {
+            background-color: #1a1a1a;
+            border: 8px solid #333;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5),
+                        inset 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .celebration-text {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 48px;
+            color: black;
+            text-shadow: 2px 2px 0px #ff4081,
+                         4px 4px 0px #800020;
+        }
+
+        #yes-button {
+            background-color: #ff4081;
+            color: black;
+        }
+
+        #no-button {
+            background-color: #f44336;
+            color: black;
+        }
+
+        #celebration-screen {
+            text-align: center;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+
         @keyframes rainbow-bg {
             0% { background-color: #ff9999; }
             25% { background-color: #ff99cc; }
@@ -201,8 +173,6 @@
             height: 100vh;
             pointer-events: none;
             z-index: 0;
-            top: 0;
-            left: 0;
         }
     </style>
 </head>
@@ -221,7 +191,7 @@
             <div class="screen-border">
                 <h1 class="title">❤️ Well done, my dear! ❤️</h1>
                 <h2 class="title">Will you be my Valentine?</h2>
-                <img src="./turtle_heart.gif" alt="Heart gif" style="margin: 20px; width: 150px; height: 150px;">
+                <img src="/api/placeholder/200/200" alt="Heart gif" style="margin: 20px; width: 150px; height: 150px;">
                 <div>
                     <button id="yes-button" class="button">Yes, I'd love to! ❤️</button>
                     <button id="no-button" class="button">No...</button>
@@ -233,15 +203,18 @@
             <div class="screen-border">
                 <h1 class="celebration-text">❤️ Yay!! ❤️</h1>
                 <div class="celebration-container">
-                    <img src="./turtle_heart.gif" alt="Heart gif">
-                    <img src="./yippee_cat.gif" alt="Celebrating cat gif">
+                    <img src="/api/placeholder/200/200" alt="Heart gif">
+                    <img src="/api/placeholder/200/200" alt="Celebrating cat gif">
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        // Previous script remains the same except for these constants
         window.onload = function() {
+
+            // Create floating hearts
             function createHeart() {
                 const heart = document.createElement('div');
                 heart.className = 'floating-heart';
@@ -253,15 +226,17 @@
             }
 
             setInterval(createHeart, 300);
-
+            
             const MAZE_WIDTH = 600;
             const MAZE_HEIGHT = 600;
-            const CELL_SIZE = 30;
+            const CELL_SIZE = 30;  // Increased from 20
             const COLS = MAZE_WIDTH / CELL_SIZE;
             const ROWS = MAZE_HEIGHT / CELL_SIZE;
             const CENTER_X = Math.floor(COLS / 2);
             const CENTER_Y = Math.floor(ROWS / 2);
 
+            // Rest of the script remains exactly the same
+            // ... (keep all the previous JavaScript code here)
             function generateMaze() {
                 const maze = Array(ROWS).fill().map(() => Array(COLS).fill(1));
                 const stack = [];
@@ -290,6 +265,7 @@
 
                 carve(start.x, start.y);
 
+                // Create more challenging path to center with zigzags
                 let currentX = CENTER_X;
                 let currentY = CENTER_Y;
                 let goingLeft = true;
@@ -300,7 +276,7 @@
                     if (goingLeft && currentX > 1) {
                         maze[currentY][currentX - 1] = 0;
                         currentX -= 2;
-                        if (Math.random() < 0.4) {
+                        if (Math.random() < 0.4) { // 40% chance to change direction
                             goingLeft = false;
                             if (currentY > 1) {
                                 maze[currentY - 1][currentX] = 0;
@@ -310,7 +286,7 @@
                     } else if (currentY > 1) {
                         maze[currentY - 1][currentX] = 0;
                         currentY -= 2;
-                        if (Math.random() < 0.4) {
+                        if (Math.random() < 0.4) { // 40% chance to change direction
                             goingLeft = true;
                             if (currentX > 1) {
                                 maze[currentY][currentX - 1] = 0;
@@ -332,6 +308,7 @@
                 return maze;
             }
 
+            // Rest of the code remains the same as before
             function createMazeWalls(maze) {
                 const mazeContainer = document.getElementById('maze-container');
                 mazeContainer.style.width = MAZE_WIDTH + 'px';
@@ -355,13 +332,13 @@
             let playerPos = { x: 0, y: 0 };
             const player = document.createElement('img');
             player.id = 'player';
-            player.src = './cat_sprite.gif';
+            player.src = '/api/placeholder/20/20';
             player.style.left = '0px';
             player.style.top = '0px';
 
             const target = document.createElement('img');
             target.id = 'target';
-            target.src = './cat_sprite.gif';
+            target.src = '/api/placeholder/20/20';
             target.style.left = (CENTER_X * CELL_SIZE) + 'px';
             target.style.top = (CENTER_Y * CELL_SIZE) + 'px';
 
@@ -409,4 +386,14 @@
                 const yesButton = document.getElementById('yes-button');
                 const currentSize = parseFloat(getComputedStyle(yesButton).fontSize);
                 yesButton.style.fontSize = (currentSize + 2) + 'px';
-                
+                yesButton.style.padding = (noClickCount * 5 + 10) + 'px ' + (noClickCount * 10 + 20) + 'px';
+            });
+
+            document.getElementById('yes-button').addEventListener('click', () => {
+                document.getElementById('win-screen').classList.add('hidden');
+                document.getElementById('celebration-screen').classList.remove('hidden');
+            });
+        };
+    </script>
+</body>
+</html>
