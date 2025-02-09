@@ -20,9 +20,31 @@
             justify-content: center;
             min-height: 100vh;
             font-family: 'Dancing Script', cursive;
-            background-color: #ff9999;
+            background-color: #333; /* Dark background for retro feel */
             animation: rainbow-bg 5s linear infinite;
             padding: 20px;
+        }
+
+        /* Retro Game Player Frame */
+        #retro-frame {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            border: 10px solid #666;
+            position: relative;
+        }
+
+        #retro-frame::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            border: 5px solid #888;
+            border-radius: 30px;
+            z-index: -1;
         }
 
         #game-container {
@@ -67,8 +89,8 @@
 
         #player, #target {
             position: absolute;
-            width: 20px;
-            height: 20px;
+            width: 30px; /* Increased size */
+            height: 30px; /* Increased size */
             transition: all 0.2s;
         }
 
@@ -107,16 +129,15 @@
             font-family: 'Dancing Script', cursive;
             transition: all 0.3s;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            color: black; /* Button text color changed to black */
         }
 
         #yes-button {
             background-color: #ff4081;
-            color: white;
         }
 
         #no-button {
             background-color: #f44336;
-            color: white;
         }
 
         #celebration-screen {
@@ -161,26 +182,29 @@
 <body>
     <div class="heart-container"></div>
     
-    <div id="game-container">
-        <div id="game-screen">
-            <h1 class="title">❤️ Reach the centre of the maze to claim your prize! ❤️</h1>
-            <div id="maze-container"></div>
-        </div>
-
-        <div id="win-screen" class="hidden">
-            <h1 class="title">❤️ Well done, my dear! ❤️</h1>
-            <h2 class="title">Will you be my Valentine?</h2>
-            <img src="/turtle_heart.gif" alt="Heart gif" style="margin: 20px;">
-            <div>
-                <button id="yes-button" class="button">Yes, I'd love to! ❤️</button>
-                <button id="no-button" class="button">No...</button>
+    <!-- Retro Frame Added -->
+    <div id="retro-frame">
+        <div id="game-container">
+            <div id="game-screen">
+                <h1 class="title">❤️ Reach the centre of the maze to claim your prize! ❤️</h1>
+                <div id="maze-container"></div>
             </div>
-        </div>
 
-        <div id="celebration-screen" class="hidden">
-            <h1 class="celebration-text">❤️ Yay!! ❤️</h1>
-            <img src="/yippee_cat.gif" alt="Celebrating cat gif" style="margin: 20px;">
-            <img src="/turtle_heart.gif" alt="Heart gif" style="margin: 20px;">
+            <div id="win-screen" class="hidden">
+                <h1 class="title">❤️ Well done, my dear! ❤️</h1>
+                <h2 class="title">Will you be my Valentine?</h2>
+                <img src="./turtle_heart.gif" alt="Heart gif" style="margin: 20px;">
+                <div>
+                    <button id="yes-button" class="button">Yes, I'd love to! ❤️</button>
+                    <button id="no-button" class="button">No...</button>
+                </div>
+            </div>
+
+            <div id="celebration-screen" class="hidden">
+                <h1 class="celebration-text">❤️ Yay!! ❤️</h1>
+                <img src="./yippee_cat.gif" alt="Celebrating cat gif" style="margin: 20px;">
+                <img src="./turtle_heart.gif" alt="Heart gif" style="margin: 20px;">
+            </div>
         </div>
     </div>
 
@@ -202,7 +226,7 @@
 
             const MAZE_WIDTH = 600;
             const MAZE_HEIGHT = 600;
-            const CELL_SIZE = 20;
+            const CELL_SIZE = 30; // Increased size
             const COLS = MAZE_WIDTH / CELL_SIZE;
             const ROWS = MAZE_HEIGHT / CELL_SIZE;
             const CENTER_X = Math.floor(COLS / 2);
@@ -290,13 +314,13 @@
             let playerPos = { x: 0, y: 0 };
             const player = document.createElement('img');
             player.id = 'player';
-            player.src = '/cat_sprite.gif';
+            player.src = './cat_sprite.gif';
             player.style.left = '0px';
             player.style.top = '0px';
 
             const target = document.createElement('img');
             target.id = 'target';
-            target.src = '/api/placeholder/20/20';
+            target.src = './cat_sprite.gif';
             target.style.left = (CENTER_X * CELL_SIZE) + 'px';
             target.style.top = (CENTER_Y * CELL_SIZE) + 'px';
 
