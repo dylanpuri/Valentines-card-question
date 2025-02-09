@@ -23,6 +23,7 @@
             background-color: #333; /* Dark background for retro feel */
             animation: rainbow-bg 5s linear infinite;
             padding: 20px;
+            color: black; /* All text color changed to black */
         }
 
         /* Retro Game Player Frame */
@@ -96,7 +97,6 @@
 
         .title {
             font-size: 36px;
-            color: white;
             margin-bottom: 20px;
             text-align: center;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
@@ -151,13 +151,26 @@
             align-items: center;
             justify-content: center;
             z-index: 3;
+            background-color: rgba(255, 255, 255, 0.9); /* Added background for better visibility */
         }
 
         .celebration-text {
             font-size: 72px;
-            color: white;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
             margin: 20px;
+        }
+
+        .celebration-gifs {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px; /* Space between GIFs */
+            max-width: 100%; /* Ensure GIFs fit within the window */
+        }
+
+        .celebration-gifs img {
+            max-width: 30%; /* Scale GIFs to fit in a row */
+            height: auto;
         }
 
         @keyframes rainbow-bg {
@@ -202,8 +215,11 @@
 
             <div id="celebration-screen" class="hidden">
                 <h1 class="celebration-text">❤️ Yay!! ❤️</h1>
-                <img src="./yippee_cat.gif" alt="Celebrating cat gif" style="margin: 20px;">
-                <img src="./turtle_heart.gif" alt="Heart gif" style="margin: 20px;">
+                <div class="celebration-gifs">
+                    <img src="./yippee_cat.gif" alt="Celebrating cat gif">
+                    <img src="./turtle_heart.gif" alt="Heart gif">
+                    <img src="./yippee_cat.gif" alt="Celebrating cat gif">
+                </div>
             </div>
         </div>
     </div>
@@ -320,7 +336,7 @@
 
             const target = document.createElement('img');
             target.id = 'target';
-            target.src = './cat_sprite.gif';
+            target.src = './prize_cat.gif';
             target.style.left = (CENTER_X * CELL_SIZE) + 'px';
             target.style.top = (CENTER_Y * CELL_SIZE) + 'px';
 
